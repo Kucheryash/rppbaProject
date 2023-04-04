@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegistrationController">
+    <children>
+        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
+            <children>
+                <Label layoutX="313.0" layoutY="56.0" text="регистрация">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+                </Label>
+                <Button fx:id="createAccButton" layoutX="283.0" layoutY="257.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="регистрация" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="14.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+            <TextField fx:id="enterNameTextField" layoutX="283.0" layoutY="87.0" opacity="0.77" prefHeight="30.0" prefWidth="132.0" promptText="имя" />
+            <Label layoutX="294.0" layoutY="25.0" prefHeight="30.0" prefWidth="110.0" text="CONTOSO" textAlignment="CENTER">
+               <font>
+                  <Font name="Bookshelf Symbol 7" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="enterLoginTextField" layoutX="283.0" layoutY="130.0" opacity="0.77" prefHeight="30.0" prefWidth="132.0" promptText="логин" />
+            <Label layoutX="428.0" layoutY="94.0" text="2-20 символов" />
+            <Label layoutX="428.0" layoutY="136.0" text="4-16 символов" />
+            <Label layoutX="428.0" layoutY="178.0" text="4-16  символов" />
+            <Label fx:id="errorLabel" layoutX="245.0" layoutY="223.0" text=" " textAlignment="CENTER" textFill="#8c4b4b" />
+            <Button fx:id="enterButton" layoutX="283.0" layoutY="297.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="132.0" style="-fx-background-color: transparent;" text="войти в аккаунт" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <PasswordField fx:id="passwordField" layoutX="284.0" layoutY="172.0" prefHeight="30.0" prefWidth="132.0" promptText="пароль" />
+            </children>
+        </AnchorPane>
+        <Button fx:id="exit" layoutX="671.0" layoutY="-1.0" minWidth="25.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" text="x" textFill="#692986">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

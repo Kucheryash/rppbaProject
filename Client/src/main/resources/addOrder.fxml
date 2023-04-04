@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddOrderController">
+    <children>
+        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
+            <children>
+            <Button fx:id="saveButton" layoutX="43.0" layoutY="325.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="сохранить" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label layoutX="297.0" layoutY="29.0" text="добавление заказа">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="backToCoursesForAdminButton" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="58.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-width: 0.3;" text="назад" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="idClientTextField" layoutX="43.0" layoutY="76.0" prefHeight="26.0" prefWidth="103.0" promptText="id клиента" />
+            <TextField fx:id="transpTimeTextField" layoutX="43.0" layoutY="118.0" prefHeight="26.0" prefWidth="158.0" promptText="время транспортировки" />
+            <TextField fx:id="deliveryDateTextField" layoutX="43.0" layoutY="160.0" prefHeight="26.0" prefWidth="158.0" promptText="дата доставки" />
+            <TextField fx:id="numberTextField" layoutX="390.0" layoutY="238.0" prefHeight="26.0" prefWidth="77.0" promptText="количество" />
+            <Label layoutX="292.0" layoutY="-1.0" prefHeight="30.0" prefWidth="114.0" text="CONTOSO" textAlignment="CENTER">
+               <font>
+                  <Font name="Bookshelf Symbol 7" size="24.0" />
+               </font>
+            </Label>
+            <TableView fx:id="coursesTableView" layoutX="516.0" layoutY="61.0" prefHeight="158.0" prefWidth="168.0">
+               <columns>
+                  <TableColumn fx:id="nameColumn" prefWidth="178.3999900817871" text="ФИО клиента" />
+               </columns>
+            </TableView>
+            <Button fx:id="chooseClientButton" layoutX="531.0" layoutY="325.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="выбрать" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TextField fx:id="nameTextField" layoutX="531.0" layoutY="238.0" prefHeight="26.0" prefWidth="132.0" promptText="ФИО" />
+            <Button fx:id="findClientButton" layoutX="531.0" layoutY="277.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="поиск" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TableView fx:id="coursesTableView1" layoutX="236.0" layoutY="61.0" prefHeight="158.0" prefWidth="231.0">
+               <columns>
+                  <TableColumn fx:id="itemColumn" prefWidth="157.59999084472656" text="наименование" />
+                  <TableColumn fx:id="numberColumn" prefWidth="72.800048828125" text="кол." />
+               </columns>
+            </TableView>
+            <ChoiceBox fx:id="itemChoiceBox" layoutX="236.0" layoutY="237.0" prefHeight="27.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-color: #5a005b; -fx-border-width: 0.5; -fx-border-radius: 3;" />
+            <Button fx:id="addItemButton" layoutX="286.0" layoutY="277.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="добавить" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Button fx:id="deleteItemButton" layoutX="286.0" layoutY="325.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="удалить" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            </children>
+        </AnchorPane>
+        <Button fx:id="exit" layoutX="671.0" layoutY="-1.0" minWidth="25.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" text="x" textFill="#692986">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>
