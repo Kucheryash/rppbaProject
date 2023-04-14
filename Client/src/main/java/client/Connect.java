@@ -5,6 +5,5 @@ public class Connect {
     public static int role = -1;
     public static String login = "";
     public static String password = "";
-    public static String department = "";
     public static int visible = 0;
 }

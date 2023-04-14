@@ -304,24 +304,6 @@ public class SQLAccounts extends DBConnect {
         return true;
     }
 
-    public boolean isExist(String login) {
-        ResultSet res = null;
-        boolean check = false;
-        String user = "SELECT * from kp.keys where login=?";
-        try {
-            PreparedStatement prSt = getDBConnect().prepareStatement(user);
-            prSt.setString(1, login);
-            res = prSt.executeQuery();
-            while (res.next()) {
-                if (login.equals(res.getString("login")))
-                    check = true;
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        return check;
-    }
-
     public boolean isExistSurn(String surname) {
         ResultSet res = null;
         boolean check = false;

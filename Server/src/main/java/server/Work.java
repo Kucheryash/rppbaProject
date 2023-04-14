@@ -1,14 +1,11 @@
 package server;
 
-import DB.old.SQLAccounts;
-import DB.old.SQLAuthorization;
-import DB.old.SQLDocuments;
-import models.old.*;
+
+import DB.SQLUsers;
+import models.Users;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.AbstractMap;
-import java.util.ArrayList;
 
 public class Work implements Runnable{
     protected Socket client = null;
@@ -28,7 +25,7 @@ public class Work implements Runnable{
                 switch (choice){
         //----------------------------РАБОТА С КЛИЕНТАМИ-------------------------------
                 //--------------------ПРОСМОТР ДАННЫХ-----------------------
-                    case "accountsInf" ->{
+                    /*case "accountsInf" ->{
                         System.out.println("Запрос к БД на получение информации о работниках.");
                         SQLAccounts acc = new SQLAccounts();
                         ArrayList<Accounts> accountsList = acc.getInf();
@@ -251,20 +248,18 @@ public class Work implements Runnable{
                         else status = "true";
                         doc.setNewStatus(status, name, table);
                         System.out.println("Статус документа '"+name+"' обновлён на: "+status+".");
-                    }
+                    }*/
 
             //---------------------------ПРОЧЕЕ------------------------------
                     case "authorization" -> {
                         System.out.println("Выполняется авторизация пользователя...");
-                        SQLAuthorization auth = new SQLAuthorization();
-                        Authorization user = (Authorization) input.readObject();
+                        SQLUsers auth = new SQLUsers();
+                        Users user = (Users) input.readObject();
                         boolean exist = auth.isExist(user);
                         if (exist == true){
                             output.writeObject("Exist");
                             int r = auth.getUser(user);
-                            String department = auth.getDepartment(user);
                             output.writeObject(r);
-                            output.writeObject(department);
                             System.out.println("Авторизация прошла успешно!");
                             user.setRole(r);
                             System.out.println(user.toString());
@@ -275,78 +270,16 @@ public class Work implements Runnable{
                     }
                     case "registration" ->{
                         System.out.println("Выполняется регистрация пользователя...");
-                        SQLAccounts user = new SQLAccounts();
+                        SQLUsers reg = new SQLUsers();
                         String login = (String) input.readObject();
-                        boolean exist = user.isExist(login);
+                        boolean exist = reg.isLoginExist(login);
                         if (exist == false) {
                             output.writeObject("OK");
-                            Accounts acc = (Accounts) input.readObject();
-                            Authorization key = (Authorization) input.readObject();
-                            Heads head = (Heads) input.readObject();
-                            user.addAcc(acc, key, head);
-                            System.out.println(acc.toString());
-                            System.out.println(key.toString());
+                            Users user = (Users) input.readObject();
+                            user.setRole(1);
+                            reg.registration(user);
+                            System.out.println(user.toString());
                         }else output.writeObject("Exist");
-                    }
-                    case "statistic"->{
-                        System.out.println("Запрос в БД на получение прибыли школы");
-                        SQLAccounts users = new SQLAccounts();
-                        ArrayList<Accounts> accList = users.statistic();
-                        ArrayList<AbstractMap.SimpleEntry<String, Double>> data = new ArrayList<>();
-                        for (Accounts acc : accList) {
-                            try {
-                                data.add(new AbstractMap.SimpleEntry<String, Double>(
-                                        acc.getLogin(), (double) acc.getNum_docs()));
-                            } catch (Exception e) {
-                                System.out.println("null");
-                            }
-                        }
-                        output.writeObject(data);
-                    }
-                    case "saveStat"->{
-                        SQLAccounts users = new SQLAccounts();
-                        ArrayList<Accounts> accList = users.statistic();
-
-                        if (accList.size() == 0)
-                            output.writeObject("Ничего нет");
-                        else {
-                            BufferedWriter outputWriter = null;
-                            outputWriter = new BufferedWriter(new FileWriter("statistic"));
-                            outputWriter.write("Статистика занятости.\n Отдел: ");
-                            outputWriter.write("Заключения договоров.\n");
-                            for (Accounts acc : accList) {
-                                while (true){
-                                    if (acc.getDepartment().equals("Заключения договоров")) {
-                                        outputWriter.write("  "+acc.getLogin() + "   " + acc.getNum_docs());
-                                        outputWriter.newLine();
-                                        break;
-                                    }else break;
-                                }
-                            }
-                            outputWriter.write(" Отдел: Маркетинг.\n");
-                            for (Accounts acc2:accList) {
-                                while (true) {
-                                    if (acc2.getDepartment().equals("Маркетинг")) {
-                                        outputWriter.write("  "+acc2.getLogin() + "   " + acc2.getNum_docs());
-                                        outputWriter.newLine();
-                                        break;
-                                    } else break;
-                                }
-                            }
-                            outputWriter.write(" Отдел: Бухгалтерия.\n");
-                            for (Accounts acc3:accList) {
-                                while (true) {
-                                    if (acc3.getDepartment().equals("Бухгалтерия")) {
-                                        outputWriter.write("  "+acc3.getLogin() + "   " + acc3.getNum_docs());
-                                        outputWriter.newLine();
-                                        break;
-                                    } else break;
-                                }
-                            }
-                            outputWriter.flush();
-                            outputWriter.close();
-                            output.writeObject("OK");
-                        }
                     }
                 }
             }

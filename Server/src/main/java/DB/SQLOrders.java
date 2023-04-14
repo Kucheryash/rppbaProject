@@ -1,4 +1,4 @@
 package DB;
 
-public class SQLOrders {
+public class SQLOrders extends DBConnect {
 }

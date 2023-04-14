@@ -1,4 +1,21 @@
 package models;
 
-public class Orders {
+import lombok.*;
+
+import java.io.Serializable;
+import java.util.Date;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+public class Orders implements Serializable {
+    private int id;
+    private int id_client;
+    private String state;
+    private int manager;
+    private Date shipped_date;
+    private Date delivery_date;
+    private int transp_time;
 }

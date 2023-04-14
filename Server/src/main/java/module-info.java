@@ -4,9 +4,8 @@ module Server {
     requires javafx.graphics;
     requires javafx.fxml;
     requires java.sql;
+    requires lombok;
 
     exports models;
     exports DB;
-    exports models.old;
-    exports DB.old;
 }
