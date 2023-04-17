@@ -1,11 +1,12 @@
 package server;
 
 
-import DB.SQLUsers;
-import models.Users;
+import DB.*;
+import models.*;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Work implements Runnable{
     protected Socket client = null;
@@ -23,36 +24,34 @@ public class Work implements Runnable{
                 String choice = input.readObject().toString();
                 System.out.println("Получена команда: '"+choice+"'.");
                 switch (choice){
-        //----------------------------РАБОТА С КЛИЕНТАМИ-------------------------------
+        //----------------------------МЕНЮ МЕНЕДЖЕРА-------------------------------
                 //--------------------ПРОСМОТР ДАННЫХ-----------------------
-                    /*case "accountsInf" ->{
-                        System.out.println("Запрос к БД на получение информации о работниках.");
-                        SQLAccounts acc = new SQLAccounts();
-                        ArrayList<Accounts> accountsList = acc.getInf();
-                        output.writeObject(accountsList);
+                    case "ordersInf" ->{
+                        System.out.println("Запрос к БД на получение информации о заказах.");
+                        SQLOrders orders = new SQLOrders();
+                        ArrayList<Orders> ordersList = orders.getInf();
+                        output.writeObject(ordersList);
                     }
-                    case "headsInf" ->{
-                        System.out.println("Запрос к БД на получение информации о начальниках отелов.");
-                        SQLAccounts head = new SQLAccounts();
-                        ArrayList<Heads> infList = head.getInfHeads();
-                        output.writeObject(infList);
+                    case "billsInf" ->{
+                        System.out.println("Запрос к БД на получение информации о чеках.");
+                        SQLBills bills = new SQLBills();
+                        ArrayList<Bills> billsList = bills.getInf();
+                        output.writeObject(billsList);
                     }
-                    case "rolesInf" ->{
-                        System.out.println("Запрос к БД на получение информации о ролях.");
-                        SQLAuthorization keys = new SQLAuthorization();
-                        ArrayList<Authorization> rolesList = keys.getInfRoles();
-                        output.writeObject(rolesList);
+                    case "clientsInf" ->{
+                        System.out.println("Запрос к БД на получение информации о клиентах.");
+                        SQLClients clients = new SQLClients();
+                        ArrayList<Clients> clientsList = clients.getInf();
+                        output.writeObject(clientsList);
                     }
-                    case "account" ->{
-                        System.out.println("Запрос к БД на переход в личный кабинет пользователя.");
-                        SQLAccounts acc = new SQLAccounts();
-                        String login = (String) input.readObject();
-                        String nameDoc = acc.getNameDocs(login);
-                        ArrayList<Accounts> accountsList = acc.showAcc(login, nameDoc);
-                        output.writeObject(accountsList);
+                    case "productsInf" ->{
+                        System.out.println("Запрос к БД на получение информации о продуктах.");
+                        SQLProducts products = new SQLProducts();
+                        ArrayList<Products> productsList = products.getInf();
+                        output.writeObject(productsList);
                     }
                 //--------------------ВЫБОРКА ДАННЫХ-----------------------
-                    case "findAcc" ->{
+                    /*case "findAcc" ->{
                         System.out.println("Запрос к БД на поиск работника.");
                         SQLAccounts user = new SQLAccounts();
                         String surname = (String) input.readObject();
@@ -129,7 +128,7 @@ public class Work implements Runnable{
                         }
                     }
 
-        //---------------------------РАБОТА С ДОКУМЕНТАМИ------------------------------
+        //---------------------------МЕНЮ РУКОВОДИТЕЛЯ------------------------------
                 //--------------------ПРОСМОТР ДАННЫХ-----------------------
                     case "docs1Inf" ->{
                         System.out.println("Запрос к БД на получение информации о дорговорах.");

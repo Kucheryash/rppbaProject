@@ -15,7 +15,7 @@ public class Orders implements Serializable {
     private int id_client;
     private String state;
     private int manager;
-    private Date shipped_date;
-    private Date delivery_date;
+    private String shipped_date;
+    private String delivery_date;
     private int transp_time;
 }

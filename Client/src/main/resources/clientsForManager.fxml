@@ -9,38 +9,36 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagerClientsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagerClientsController">
     <children>
         <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
             <children>
-            <Label fx:id="errorFindLabel" layoutX="358.0" layoutY="143.0" text=" " textAlignment="CENTER" textFill="#8c4b4b" />
-            <TableView fx:id="coursesTableView" layoutX="14.0" layoutY="69.0" prefHeight="291.0" prefWidth="482.0">
+            <TableView fx:id="table_clients" layoutX="14.0" layoutY="90.0" prefHeight="271.0" prefWidth="482.0">
               <columns>
                 <TableColumn fx:id="nameColumn" prefWidth="157.60000324249268" text="ФИО" />
                   <TableColumn fx:id="emailColumn" prefWidth="164.8000030517578" text="email" />
                   <TableColumn fx:id="phoneColumn" prefWidth="158.4000244140625" text="телефон" />
               </columns>
             </TableView>
-            <Label fx:id="errorEditLabel" layoutX="356.0" layoutY="205.0" text=" " textFill="#a93f3f" />
-            <Label fx:id="errorDeleteLabel" layoutX="358.0" layoutY="351.0" text=" " textFill="#a93f3f" />
-            <Label layoutX="296.0" layoutY="42.0" text="Управление клиентами">
+            <Label fx:id="errorLabel" layoutX="14.0" layoutY="60.0" text=" " textFill="#a93f3f" />
+            <Label alignment="CENTER" layoutX="292.0" layoutY="30.0" text="Управление клиентами" textAlignment="CENTER">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="mainMenuButton" layoutX="38.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-width: 0.3;" text="Главное меню" underline="true">
+            <Button fx:id="mainMenuButton" layoutX="14.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-width: 0.3;" text="Главное меню" underline="true">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label layoutX="308.0" layoutY="-1.0" prefHeight="30.0" prefWidth="114.0" text="CONTOSO" textAlignment="CENTER">
+            <Label alignment="CENTER" layoutX="301.0" layoutY="-1.0" prefHeight="30.0" prefWidth="114.0" text="CONTOSO" textAlignment="CENTER">
                <font>
                   <Font name="Bookshelf Symbol 7" size="24.0" />
                </font>
             </Label>
-            <TextField fx:id="nameTextField" layoutX="524.0" layoutY="73.0" prefHeight="26.0" prefWidth="138.0" promptText="ФИО" />
-            <TextField fx:id="emailTextField" layoutX="524.0" layoutY="125.0" prefHeight="26.0" prefWidth="138.0" promptText="email" />
-            <Button fx:id="addButton" layoutX="524.0" layoutY="322.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="добавить" textFill="WHITE">
+            <TextField fx:id="nameTextField" layoutX="524.0" layoutY="90.0" prefHeight="26.0" prefWidth="138.0" promptText="ФИО" />
+            <TextField fx:id="emailTextField" layoutX="524.0" layoutY="130.0" prefHeight="26.0" prefWidth="138.0" promptText="email" />
+            <Button fx:id="addButton" layoutX="524.0" layoutY="330.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="добавить" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -48,8 +46,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TextField fx:id="phoneTextField" layoutX="524.0" layoutY="178.0" prefHeight="26.0" prefWidth="138.0" promptText="телефон" />
-                <Button fx:id="editButton" layoutX="524.0" layoutY="271.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="изменить" textFill="WHITE">
+            <TextField fx:id="phoneTextField" layoutX="524.0" layoutY="170.0" prefHeight="26.0" prefWidth="138.0" promptText="телефон" />
+                <Button fx:id="editButton" layoutX="524.0" layoutY="275.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="изменить" textFill="WHITE">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -57,7 +55,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                 </Button>
-            <Button fx:id="findButton" layoutX="524.0" layoutY="223.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="поиск по ФИО" textFill="WHITE">
+            <Button fx:id="findButton" layoutX="524.0" layoutY="220.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="138.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="поиск по ФИО" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
