@@ -2,12 +2,14 @@ package models;
 
 import lombok.*;
 
+import java.io.Serializable;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Items {
+public class Items implements Serializable {
     private int id;
     private String name;
     private String type;

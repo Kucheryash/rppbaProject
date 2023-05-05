@@ -75,6 +75,8 @@ public class RegistrationController {
             Connect.password = password;
             Users user = new Users(login, password, role);
             Connect.client.sendObject(user);
+            int id = (int) Connect.client.readObject();
+            Connect.manager = id;
             try {
                 System.out.println("Окно менеджера.");
                 WinChanger.changeWindow(getClass(), createAccButton, "managerMenu.fxml", false);

@@ -27,6 +27,25 @@ public class SQLUsers extends DBConnect {
         return role;
     }
 
+    public int getId (Users user){
+        String get = "SELECT * from rppba.users where login = ?";
+        ResultSet res = null;
+        int id = -1;
+        try {
+            PreparedStatement prSt = getDBConnect().prepareStatement(get);
+            prSt.setString(1, user.getLogin());
+            res = prSt.executeQuery();
+            while (res.next()){
+                id = res.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
+    }
+
     public void registration(Users user) {
         String add = "INSERT INTO rppba.users (login, password, role) VALUES(?,?,?)";
         try {
@@ -38,24 +57,6 @@ public class SQLUsers extends DBConnect {
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static ArrayList<Users> getInfRoles() {
-        String get = "SELECT login, password, role from rppba.users";
-        ArrayList<String[]> result = DBConnect.getArrayResult(get);
-        ArrayList<Users> rolesList = new ArrayList<>();
-        for (String[] items: result){
-            Users roles = new Users();
-            roles.setLogin(items[0]);
-            roles.setPassword(items[1]);
-            try {
-                roles.setRole(Integer.parseInt(items[2]));
-            } catch (NumberFormatException e) {
-                System.out.println("null");
-            }
-            rolesList.add(roles);
-        }
-        return rolesList;
     }
 
     public boolean isExist(Users user){

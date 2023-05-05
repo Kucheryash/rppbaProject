@@ -9,15 +9,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HeadMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HeadMenuController">
     <children>
-        <AnchorPane layoutY="32.0" prefHeight="370.0" prefWidth="700.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
+        <AnchorPane layoutY="32.0" prefHeight="370.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(#ffffff, #ac89bb)">
             <children>
-                <Label fx:id="errCertificate" layoutX="484.0" layoutY="224.0" prefHeight="15.0" prefWidth="132.0" textFill="#a43333">
-                    <font>
-                        <Font size="10.0" />
-                    </font>
-                </Label>
             <Button fx:id="exitAccButton" layoutX="634.0" layoutY="1.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: transparent;" text="выйти" underline="true">
                <font>
                   <Font name="System Bold" size="12.0" />
@@ -26,15 +21,15 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <TableView fx:id="coursesTableView" layoutX="34.0" layoutY="75.0" prefHeight="204.0" prefWidth="430.0">
+            <TableView fx:id="table_orders" layoutX="11.0" layoutY="90.0" prefHeight="210.0" prefWidth="453.0">
               <columns>
-                <TableColumn fx:id="idColumn" prefWidth="50.39999008178711" text="id" />
-                <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="108.79998779296875" text="статус" />
-                  <TableColumn fx:id="managerColumn" prefWidth="270.40003967285156" text="менджер" />
+                <TableColumn fx:id="idColumn" prefWidth="50.39999008178711" text="номер" />
+                <TableColumn fx:id="statusColumn" minWidth="0.0" prefWidth="161.59997177124023" text="статус" />
+                  <TableColumn fx:id="managerColumn" prefWidth="237.6000518798828" text="менджер" />
               </columns>
             </TableView>
-            <Label fx:id="errorStudyLabel" layoutX="149.0" layoutY="322.0" text=" " textFill="#a93f3f" />
-            <Button fx:id="acceptResButton" layoutX="486.0" layoutY="132.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="разрешить резервацию">
+            <Label fx:id="errorLabel" layoutX="14.0" layoutY="60.0" text=" " textFill="#a93f3f" />
+            <Button fx:id="acceptResButton" layoutX="485.0" layoutY="169.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="разрешить резервацию">
                <font>
                   <Font size="14.0" />
                </font>
@@ -42,8 +37,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Label fx:id="errorFindLabel" layoutX="484.0" layoutY="164.0" prefHeight="18.0" prefWidth="132.0" text=" " textFill="#a93f3f" />
-            <Button fx:id="rejectResButton" layoutX="485.0" layoutY="185.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="отклонить резервацию">
+            <Button fx:id="rejectResButton" layoutX="485.0" layoutY="218.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="отклонить резервацию">
                <font>
                   <Font size="14.0" />
                </font>
@@ -51,8 +45,8 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <ChoiceBox fx:id="statusChoiceBox" layoutX="486.0" layoutY="77.0" prefHeight="31.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-color: #5a005b; -fx-border-width: 0.5; -fx-border-radius: 3;" />
-            <Button fx:id="abrogateResButton" layoutX="486.0" layoutY="239.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="снять резервацию">
+            <ChoiceBox fx:id="statusChoiceBox" layoutX="485.0" layoutY="90.0" prefHeight="31.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-color: #5a005b; -fx-border-width: 0.5; -fx-border-radius: 3;" />
+            <Button fx:id="abrogateResButton" layoutX="485.0" layoutY="268.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="178.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="снять резервацию">
                <font>
                   <Font size="14.0" />
                </font>
@@ -60,7 +54,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="showContetntButton" layoutX="148.0" layoutY="306.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="202.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="просмотреть содержимое" textFill="#fffefe">
+            <Button fx:id="showContentButton" layoutX="148.0" layoutY="312.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="202.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="просмотреть содержимое" textFill="#fffefe">
                <font>
                   <Font size="14.0" />
                </font>
@@ -74,8 +68,11 @@
             <font>
                 <Font size="14.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
-      <Label layoutX="302.0" layoutY="37.0" prefHeight="30.0" prefWidth="114.0" text="CONTOSO" textAlignment="CENTER">
+      <Label layoutX="302.0" layoutY="30.0" prefHeight="30.0" prefWidth="114.0" text="CONTOSO" textAlignment="CENTER">
          <font>
             <Font name="Bookshelf Symbol 7" size="24.0" />
          </font>

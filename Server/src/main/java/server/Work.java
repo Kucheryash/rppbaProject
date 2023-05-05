@@ -50,205 +50,155 @@ public class Work implements Runnable{
                         ArrayList<Products> productsList = products.getInf();
                         output.writeObject(productsList);
                     }
-                //--------------------ВЫБОРКА ДАННЫХ-----------------------
-                    /*case "findAcc" ->{
-                        System.out.println("Запрос к БД на поиск работника.");
-                        SQLAccounts user = new SQLAccounts();
-                        String surname = (String) input.readObject();
-                        boolean exist = user.isExistSurn(surname);
-                        if (exist == true){
-                            output.writeObject("OK");
-                            System.out.println("Найден пользователь с фамилией '"+surname+"'.");
-                            ArrayList<Accounts> accList = user.findAcc(surname);
-                            output.writeObject(accList);
-                        } else output.writeObject("NotExist");
-                    }case "chooseDepartment" ->{
-                        System.out.println("Запрос к БД на выбор отдела.");
-                        SQLAccounts account = new SQLAccounts();
-                        String department = (String) input.readObject();
-                        System.out.println("Показаны работники отдела "+department);
-                        ArrayList<Accounts> accList = account.findDepartment(department);
-                        output.writeObject(accList);
-                    }case "chooseDepartHead" ->{
-                        System.out.println("Запрос к БД на выбор отдела.");
-                        SQLAccounts account = new SQLAccounts();
-                        String department = (String) input.readObject();
-                        System.out.println("Показан начальник отдела "+department);
-                        ArrayList<Heads> accList = account.findDepartHead(department);
-                        output.writeObject(accList);
+                    case "clientsNameInf" ->{
+                        System.out.println("Запрос к БД на получение информации о клиентах.");
+                        SQLClients clients = new SQLClients();
+                        ArrayList<Clients> clientsList = clients.getNameInf();
+                        output.writeObject(clientsList);
                     }
-                //--------------------ИЗМЕНЕНИЕ ДАННЫХ-----------------------
-                    case "editAcc" ->{
-                        System.out.println("Запрос к БД на редактирование информации о пользователе.");
-                        SQLAccounts user = new SQLAccounts();
-                        String login = (String) input.readObject();
-                        boolean exist = user.isExist(login);
-                        if (exist == true){
-                            output.writeObject("OK");
-                            Accounts acc = (Accounts) input.readObject();
-                            Authorization auth = (Authorization) input.readObject();
-                            user.editAcc(acc, auth);
-                            System.out.println("Данные пользователя '" + login + "' изменены.");
-                        } else output.writeObject("NotExist");
-                    }
-                    case "editLogin" ->{
-                        SQLAccounts user = new SQLAccounts();
-                        String oldLogin = (String) input.readObject();
-                        String newLogin = (String) input.readObject();
-                        System.out.println("Запрос к БД на изменение логина пользователя '" + oldLogin + "'.");
-                        boolean exist = user.isExist(newLogin);
-                        if (exist == false){
-                            output.writeObject("OK");
-                            user.editLogin(oldLogin, newLogin);
-                            System.out.println("Логин изменён на '" + newLogin + "'.");
-                        } else output.writeObject("Exist");
-                    }
-                    case "changePass" ->{
-                        System.out.println("Запрос к БД на изменение пароля пользователя.");
-                        SQLAccounts user = new SQLAccounts();
-                        String login = (String) input.readObject();
-                        String oldPass = (String) input.readObject();
-                        String newPass = (String) input.readObject();
-                        user.editPass(login, oldPass, newPass);
-                        output.writeObject("OK");
-                        System.out.println("Пароль изменён.");
-
-                    }
-                    case "deleteAcc" ->{
-                        System.out.println("Запрос на удаление пользователя.");
-                        SQLAccounts user = new SQLAccounts();
-                        String login = (String) input.readObject();
-                        System.out.println("Удаление пользователя: "+login+".");
-                        boolean exist = user.isExist(login);
-                        if (exist == true){
-                            user.deleteAcc(login);
-                            output.writeObject("OK");
-                        } else {
-                            output.writeObject("NotExist");
+                    case "orderContentInf" ->{
+                        System.out.println("Запрос к БД на получение информации о содержимого заказа.");
+                        SQLOrders orders = new SQLOrders();
+                        int id_order = (int) input.readObject();
+                        ArrayList<OrderContent> contentList = orders.getContent(id_order);
+                        output.writeObject(contentList);
+                        int id = (int) input.readObject();
+                        if (id!=0) {
+                            int id_client = orders.findClientByOrderId(id);
+                            output.writeObject(id_client);
                         }
                     }
+                //--------------------ВЫБОРКА ДАННЫХ-----------------------
+                    case "findClient" ->{
+                        System.out.println("Запрос к БД на поиск клиента.");
+                        SQLClients clients = new SQLClients();
+                        String name = (String) input.readObject();
+                        boolean exist = clients.isExist(name);
+                        if (exist == true){
+                            output.writeObject("OK");
+                            System.out.println("Найден пользователь с фамилией '"+name+"'.");
+                            ArrayList<Clients> accList = clients.findClient(name);
+                            output.writeObject(accList);
+                        } else output.writeObject("NotExist");
+                    }
+                    case "addClient" ->{
+                        System.out.println("Запрос к БД на добавление клиента.");
+                        SQLClients clients = new SQLClients();
+                        String name = (String) input.readObject();
+                        String email = (String) input.readObject();
+                        String phone = (String) input.readObject();
+                        boolean exist = clients.isExistClient(name);
+                        if (exist == false) {
+                            output.writeObject("OK");
+                            clients.addClient(name, email, phone);
+                            System.out.println(client.toString());
+                        } else output.writeObject("Exist");
+                    }
+                    case "addOrderContent" ->{
+                        System.out.println("Запрос к БД на добавление содержимого заказа.");
+                        SQLOrders orderContent = new SQLOrders();
+                        int id_order = (int) input.readObject();
+                        String bar_code = (String) input.readObject();
+                        Integer number = (Integer) input.readObject();
+                        orderContent.addOrderContent(bar_code, number, id_order);
+                        System.out.println("Содержимое заказа успешно добавлено.");
+                    }
+                    case "addOrder" ->{
+                        System.out.println("Запрос к БД на добавление заказа.");
+                        SQLOrders orders = new SQLOrders();
+                        Orders order = (Orders) input.readObject();
+                        orders.addOrder(order);
+                        System.out.println("Заказ успешно добавлен.");
+                        ArrayList<Orders> ordersList = orders.getInf();
+                        order = ordersList.get(ordersList.size()-1);
+                        orders.newOrderIdInContent(order.getId());
+                    }
+                //--------------------ИЗМЕНЕНИЕ ДАННЫХ-----------------------
+                    case "editBillState" ->{
+                        SQLBills bills = new SQLBills();
+                        int id = (Integer) input.readObject();
+                        String newState = (String) input.readObject();
+                        System.out.println("Запрос к БД на изменение статуса чека.");
+                        bills.editState(id, newState);
+                        System.out.println("Статус чека изменён на '" + newState + "'.");
+                    }
+                    case "editClient" ->{
+                        System.out.println("Запрос к БД на редактирование информации о клиенте.");
+                        SQLClients clients = new SQLClients();
+                        String oldName = (String) input.readObject();
+                        String name = (String) input.readObject();
+                        String email = (String) input.readObject();
+                        String phone = (String) input.readObject();
+                        clients.editClient(oldName, name, email, phone);
+                        System.out.println("Данные о клиенте изменены.");
+                    }
+                    case "editOrder" ->{
+                        System.out.println("Запрос к БД на изменение заказа.");
+                        SQLOrders orders = new SQLOrders();
+                        Orders order = (Orders) input.readObject();
+                        orders.editOrder(order);
+                        System.out.println("Заказ успешно обновлён.");
+                    }
+                    case "deleteContent" ->{
+                        System.out.println("Запрос на удаление содержимого заказа.");
+                        SQLOrders orderContent = new SQLOrders();
+                        int id = (int) input.readObject();
+                        orderContent.deleteContent(id);
+                        System.out.println("Удаление прошло успешно.");
+                    }
+                    case "editProduct" ->{
+                        System.out.println("Запрос к БД на изменение продукции.");
+                        SQLProducts products = new SQLProducts();
+                        int id = (int) input.readObject();
+                        int made_yesterday = (int) input.readObject();
+                        products.editProduct(id, made_yesterday);
+                        System.out.println("Заказ успешно обновлён.");
+                    }
+//                    case "findProduct" ->{
+//                        System.out.println("Запрос к БД на поиск продукции.");
+//                        SQLProducts products = new SQLProducts();
+//                        String name = (String) input.readObject();
+//                        boolean exist = products.isExist(name);
+//                        if (exist == true){
+//                            output.writeObject("OK");
+//                            ArrayList<Products> prodList = products.findProdByItemName(name);
+//                            output.writeObject(prodList);
+//                        } else output.writeObject("NotExist");
+//                    }
 
         //---------------------------МЕНЮ РУКОВОДИТЕЛЯ------------------------------
                 //--------------------ПРОСМОТР ДАННЫХ-----------------------
-                    case "docs1Inf" ->{
-                        System.out.println("Запрос к БД на получение информации о дорговорах.");
-                        SQLDocuments docs = new SQLDocuments();
-                        ArrayList<Documents> infList = docs.getInf1();
-                        output.writeObject(infList);
+                    case "showOrders" ->{
+                        System.out.println("Запрос к БД на получение информации о заказах для руководителя.");
+                        SQLOrders orders = new SQLOrders();
+                        ArrayList<Orders> ordersList = orders.getInfForHead();
+                        output.writeObject(ordersList);
                     }
-                    case "docs2Inf" ->{
-                        System.out.println("Запрос к БД на получение информации о дорговорах.");
-                        SQLDocuments docs = new SQLDocuments();
-                        ArrayList<CharterDocs> infList = docs.getInf2();
-                        output.writeObject(infList);
+                    case "showContent" ->{
+                        System.out.println("Запрос к БД на получение информации о содержимого заказа.");
+                        int id_order = (Integer) input.readObject();
+                        SQLOrders orders = new SQLOrders();
+                        ArrayList<OrderContent> contentList = orders.getContent(id_order);
+                        output.writeObject(contentList);
                     }
                 //--------------------ВЫБОРКА ДАННЫХ-----------------------
-                    case "addDoc1" ->{
-                        System.out.println("Запрос к БД на добавление договора.");
-                        SQLDocuments document = new SQLDocuments();
-                        Documents doc = (Documents) input.readObject();
-                        boolean exist = document.isExistDoc(doc.getName());
-                        if (exist == false) {
-                            output.writeObject("OK");
-                            document.addDoc(doc);
-                            System.out.println(doc.toString());
-                        } else output.writeObject("Exist");
-                    }
-                    case "addDoc2" ->{
-                        System.out.println("Запрос к БД на добавление договора.");
-                        SQLDocuments document = new SQLDocuments();
-                        CharterDocs doc = (CharterDocs) input.readObject();
-                        boolean exist = document.isExistCh(doc.getName());
-                        if (exist == false) {
-                            output.writeObject("OK");
-                            document.addCh(doc);
-                            System.out.println(doc.toString());
-                        } else output.writeObject("Exist");
-                    }
-                    case "findDoc1" ->{
-                        System.out.println("Запрос к БД на поиск договора.");
-                        SQLDocuments docs = new SQLDocuments();
-                        String doc = (String) input.readObject();
-                        boolean exist = docs.isExistDoc(doc);
-                        if (exist == true){
-                            output.writeObject("OK");
-                            ArrayList<Documents> docList = docs.findDoc1(doc);
-                            output.writeObject(docList);
-                        } else output.writeObject("NotExist");
-                    }
-                    case "findDoc2" ->{
-                        System.out.println("Запрос к БД на поиск договора.");
-                        SQLDocuments docs = new SQLDocuments();
-                        String doc = (String) input.readObject();
-                        boolean exist = docs.isExistCh(doc);
-                        if (exist == true){
-                            output.writeObject("OK");
-                            ArrayList<CharterDocs> docList = docs.findDoc2(doc);
-                            output.writeObject(docList);
-                        } else output.writeObject("NotExist");
-                    }
-                    case "showDoneDocs" ->{
-                        System.out.println("Запрос к БД на сортировку договоров.");
-                        SQLDocuments docs = new SQLDocuments();
-                        Documents doc = (Documents) input.readObject();
-                        ArrayList<Documents> docList = docs.showDoneDocs(doc);
-                        output.writeObject(docList);
-                        System.out.println("Показаны выполненные договоры.");
+                    case "chooseOrderState" ->{
+                        System.out.println("Запрос к БД на выбор заказов по статусу.");
+                        SQLOrders orders = new SQLOrders();
+                        String state = (String) input.readObject();
+                        System.out.println("Показаны заказы со статусом '"+state+"'.");
+                        ArrayList<Orders> ordersList = orders.findOrdersByState(state);
+                        output.writeObject(ordersList);
                     }
                 //--------------------ИЗМЕНЕНИЕ ДАННЫХ-----------------------
-                    case "resolution" ->{
-                        System.out.println("Запрос на назначение исполнителя договора.");
-                        SQLDocuments doc = new SQLDocuments();
-                        SQLAccounts user = new SQLAccounts();
-                        String login = (String) input.readObject();
-                        String name = (String) input.readObject();
-                        boolean existLogin = user.isExist(login), existDoc = doc.isExistDoc(name);
-                        if (existLogin == false || existDoc == false)
-                            output.writeObject("NotExist");
-                        else {
-                            output.writeObject("OK");
-                            doc.resolution(login, name);
-                            System.out.println("Исполнителю '" + login + "' назначен договор '"+name+"'.");
-                        }
+                    case "editOrderState" ->{
+                        SQLOrders order = new SQLOrders();
+                        int id = (Integer) input.readObject();
+                        String newState = (String) input.readObject();
+                        System.out.println("Запрос к БД на изменение статуса заказа.");
+                        order.editState(id, newState);
+                        System.out.println("Статус заказа изменён на '" + newState + "'.");
                     }
-                    case "deleteDoc1" ->{
-                        System.out.println("Запрос на удаление договора.");
-                        SQLDocuments doc = new SQLDocuments();
-                        String name = (String) input.readObject();
-                        boolean exist = doc.isExistDoc(name);
-                        if (exist==true){
-                            output.writeObject("OK");
-                            System.out.println("Удаление договора '"+name+"'");
-                            String table = "doc1";
-                            doc.deleteDoc(name, table);
-                        } else output.writeObject("NotExist");
-                    }
-                    case "deleteDoc2" ->{
-                        System.out.println("Запрос на удаление устава.");
-                        SQLDocuments doc = new SQLDocuments();
-                        String name = (String) input.readObject();
-                        boolean exist = doc.isExistCh(name);
-                        if (exist==true){
-                            output.writeObject("OK");
-                            System.out.println("Удаление документа '"+name+"'");
-                            String table = "doc2";
-                            doc.deleteDoc(name, table);
-                        } else output.writeObject("NotExist");
-                    }
-                    case "setNewStatus"->{
-                        System.out.println("Запрос на изменение статуса документа.");
-                        SQLDocuments doc = new SQLDocuments();
-                        String table = (String) input.readObject();
-                        String name = (String) input.readObject();
-                        String oldstatus = (String) input.readObject();
-                        String status = "";
-                        if (oldstatus.equals("true"))
-                            status = "false";
-                        else status = "true";
-                        doc.setNewStatus(status, name, table);
-                        System.out.println("Статус документа '"+name+"' обновлён на: "+status+".");
-                    }*/
-
             //---------------------------ПРОЧЕЕ------------------------------
                     case "authorization" -> {
                         System.out.println("Выполняется авторизация пользователя...");
@@ -259,6 +209,8 @@ public class Work implements Runnable{
                             output.writeObject("Exist");
                             int r = auth.getUser(user);
                             output.writeObject(r);
+                            int id = auth.getId(user);
+                            output.writeObject(id);
                             System.out.println("Авторизация прошла успешно!");
                             user.setRole(r);
                             System.out.println(user.toString());
@@ -277,6 +229,8 @@ public class Work implements Runnable{
                             Users user = (Users) input.readObject();
                             user.setRole(1);
                             reg.registration(user);
+                            int id = reg.getId(user);
+                            output.writeObject(id);
                             System.out.println(user.toString());
                         }else output.writeObject("Exist");
                     }

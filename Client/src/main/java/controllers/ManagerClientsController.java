@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -11,7 +12,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.Bills;
 import models.Clients;
+import models.Orders;
 import other.WinChanger;
 
 public class ManagerClientsController {
@@ -65,27 +68,40 @@ public class ManagerClientsController {
 
     @FXML
     void initialize() {
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("ФИО"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("телефон"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phone"));
         table_clients.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         table_clients.setItems(getInf());
 
         findButton.setOnAction(event ->{
-            if(nameTextField.getText() != "") {
+            if(!nameTextField.getText().equals("")) {
                 Connect.client.sendMessage("findClient");
-                findDoc();
-            }else errorLabel.setText("Введите ФИО для поиска!");
+                findClient();
+            }else errorLabel.setText("Введите название компании для поиска!");
         });
 
-        editButton.setOnAction(event ->{
-            Connect.client.sendMessage("editClient");
-
+        table_clients.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                Clients client = table_clients.getSelectionModel().getSelectedItem();
+                if (client != null){
+                    nameTextField.setText(client.getName());
+                    emailTextField.setText(client.getEmail());
+                    phoneTextField.setText(client.getPhone());
+                }
+                editButton.setOnAction(event ->{
+                    if (client == null)
+                        errorLabel.setText("Выберите клиента для редактирования!");
+                    else{
+                        editClient(client.getName(),nameTextField.getText(), emailTextField.getText(), phoneTextField.getText());
+                    }
+                });
+            }
         });
 
         addButton.setOnAction(event ->{
             if (!checkInput()) {
-                Connect.client.sendMessage("addClient");
+                addClient();
             }else errorLabel.setText("Заполните необходимые поля!");
 
         });
@@ -111,7 +127,27 @@ public class ManagerClientsController {
         return clientList;
     }
 
-    private void findDoc() {
+    private void editClient(String oldName, String name, String email, String phone) {
+        Connect.client.sendMessage("editClient");
+        Connect.client.sendObject(oldName);
+        Connect.client.sendObject(name);
+        Connect.client.sendObject(email);
+        Connect.client.sendObject(phone);
+
+        System.out.println("Данные клиента успешно изменены.");
+        nameTextField.clear();
+        emailTextField.clear();
+        phoneTextField.clear();
+        table_clients.getItems().clear();
+        Connect.client.sendMessage("clientsInf");
+        try{
+            WinChanger.changeWindow(getClass(), editButton, "clientsForManager.fxml", false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void findClient() {
         String name = nameTextField.getText(), m="";
         Connect.client.sendObject(name);
         try {
@@ -122,18 +158,49 @@ public class ManagerClientsController {
         if (m.equals("OK")) {
             try {
                 clients.clear();
-                ArrayList<Clients> document = (ArrayList<Clients>) Connect.client.readObject();
-                System.out.println("Найден документ " + nameTextField.getText());
-                clients.addAll(document);
+                ArrayList<Clients> clientsList = (ArrayList<Clients>) Connect.client.readObject();
+                System.out.println("Найден клиент " + nameTextField.getText());
+                clients.addAll(clientsList);
                 for (int i = 0; i < clients.size(); i++)
                     table_clients.setItems(clients);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else errorLabel.setText("Данный клиент не найден!");
+        } else errorLabel.setText("Клиент не найден!");
         nameTextField.clear();
     }
 
+    private void addClient() {
+        String m="";
+        String name = nameTextField.getText();
+        String email = emailTextField.getText();
+        String phone = phoneTextField.getText();
+        Connect.client.sendMessage("addClient");
+        Connect.client.sendObject(name);
+        Connect.client.sendObject(email);
+        Connect.client.sendObject(phone);
+        try {
+            m = Connect.client.readMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (m.equals("Exist")) {
+            nameTextField.clear();
+            errorLabel.setText("Данный клиент уже существует! Измените название компании.");
+        }else {
+            System.out.println("Новый клиент успешно добавлен.");
+            nameTextField.clear();
+            emailTextField.clear();
+            phoneTextField.clear();
+            table_clients.getItems().clear();
+            Connect.client.sendMessage("clientsInf");
+            try {
+                WinChanger.changeWindow(getClass(), editButton, "clientsForManager.fxml", false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private boolean checkInput() {
         try {

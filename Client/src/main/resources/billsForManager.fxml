@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagerBillsController">
+    <children>
+        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(#ffffff, #ac89bb)">
+            <children>
+                <Button fx:id="changeStateButton" layoutX="501.0" layoutY="155.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="изменить статус">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+                </Button>
+            <TableView fx:id="table_bills" layoutX="38.0" layoutY="90.0" prefHeight="266.0" prefWidth="414.0">
+              <columns>
+                <TableColumn fx:id="numberColumn" prefWidth="66.39999008178711" text="номер" />
+                  <TableColumn fx:id="costColumn" prefWidth="128.79998779296875" text="сумма" />
+                  <TableColumn fx:id="payment_methColumn" prefWidth="108.80006408691406" text="способ оплаты" />
+                  <TableColumn fx:id="stateColumn" prefWidth="112.79998779296875" text="статус" />
+              </columns>
+            </TableView>
+            <Label fx:id="errorLabel" layoutX="38.0" layoutY="60.0" text=" " textFill="#a93f3f" />
+            <Label layoutX="299.0" layoutY="30.0" text="Управление оплатами">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="mainMenuButton" layoutX="38.0" layoutY="-1.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="107.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-width: 0.3;" text="Главное меню" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label layoutX="308.0" layoutY="-1.0" prefHeight="30.0" prefWidth="114.0" text="CONTOSO" textAlignment="CENTER">
+               <font>
+                  <Font name="Bookshelf Symbol 7" size="24.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="stateChoiceBox" layoutX="501.0" layoutY="118.0" prefHeight="27.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-color: #5a005b; -fx-border-width: 0.5; -fx-border-radius: 3;" />
+            </children>
+        </AnchorPane>
+        <Button fx:id="exit" layoutX="671.0" layoutY="-1.0" minWidth="25.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" text="x" textFill="#692986">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+    </children>
+</AnchorPane>

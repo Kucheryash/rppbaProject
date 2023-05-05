@@ -15,4 +15,7 @@ public class Products implements Serializable {
     private int shipped_all_time;
     private int reserved;
     private int current_num;
+    private String name;
+
+
 }

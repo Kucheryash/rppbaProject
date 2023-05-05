@@ -11,9 +11,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagerOrdersController">
     <children>
-        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
+        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(#ffffff, #ac89bb)">
             <children>
-                <Button fx:id="editOrderButton" layoutX="542.0" layoutY="190.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="изменить статус">
+                <Button fx:id="editOrderStateButton" layoutX="542.0" layoutY="130.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="изменить статус">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -30,7 +30,7 @@
               </columns>
             </TableView>
             <Label fx:id="errorLabel" alignment="CENTER" layoutX="21.0" layoutY="60.0" text=" " textAlignment="CENTER" textFill="#a93f3f" />
-            <Button fx:id="addOrderButton" layoutX="542.0" layoutY="90.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="добавить">
+            <Button fx:id="addOrderButton" layoutX="542.0" layoutY="285.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="добавить">
                <font>
                   <Font size="14.0" />
                </font>
@@ -53,13 +53,24 @@
                   <Font name="Bookshelf Symbol 7" size="24.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="stateChoiceBox" layoutX="542.0" layoutY="150.0" prefHeight="27.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-color: #5a005b; -fx-border-width: 0.5; -fx-border-radius: 3;" />
+            <ChoiceBox fx:id="stateChoiceBox" layoutX="542.0" layoutY="90.0" prefHeight="27.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-color: #5a005b; -fx-border-width: 0.5; -fx-border-radius: 3;" />
+            <Button fx:id="editOrderButton" layoutX="542.0" layoutY="209.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="изменить">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
             </children>
         </AnchorPane>
         <Button fx:id="exit" layoutX="671.0" layoutY="-1.0" minWidth="25.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="30.0" style="-fx-background-color: white;" text="x" textFill="#692986">
             <font>
                 <Font size="14.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
     </children>
 </AnchorPane>

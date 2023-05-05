@@ -81,12 +81,15 @@ public class AuthorizationController {
         else {
             Connect.login = login;
             int r = (int) Connect.client.readObject();
+            int id = (int) Connect.client.readObject();
+            Connect.manager = id;
             Connect.role = r;
             Connect.password = password;
 
             try {
                 if (Connect.role == 0){
                     System.out.println("Окно руководителя.");
+                    Connect.client.sendMessage("showOrders");
                     WinChanger.changeWindow(getClass(), enterButton, "headMenu.fxml", false);
                 } else{
                     System.out.println("Окно менеджера.");

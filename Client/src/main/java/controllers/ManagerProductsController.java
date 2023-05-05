@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -11,7 +12,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.Clients;
+import models.OrderContent;
+import models.Orders;
 import models.Products;
 import other.WinChanger;
 
@@ -24,13 +26,7 @@ public class ManagerProductsController {
     private URL location;
 
     @FXML
-    private Button addCostButton;
-
-    @FXML
     private Button addMadeYesterdayButton;
-
-    @FXML
-    private TextField costTextField;
 
     @FXML
     private TableView<Products> table_products;
@@ -39,10 +35,10 @@ public class ManagerProductsController {
     private TableColumn<Products, Integer> currentNumberColumn;
 
     @FXML
-    private TableColumn<Products, Integer> costColumn;
+    private TableColumn<Products, Integer> nameColumn;
 
     @FXML
-    private TableColumn<Products, Integer> nameColumn;
+    private TableColumn<Products, Integer> idColumn;
 
     @FXML
     private Label errorLabel;
@@ -66,30 +62,31 @@ public class ManagerProductsController {
 
     @FXML
     void initialize() {
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("наименование"));
-        currentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("текущее кол-во"));
-        costColumn.setCellValueFactory(new PropertyValueFactory<>("цена"));
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        currentNumberColumn.setCellValueFactory(new PropertyValueFactory<>("current_num"));
         table_products.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         table_products.setItems(getInf());
 
+        addMadeYesterdayButton.setDisable(true);
         addMadeYesterdayButton.setOnAction(event ->{
-            if (madeYesterdayTextField.getText() != "") {
-                Connect.client.sendMessage("editNumProduct");
-            }else errorLabel.setText("Заполните необходимое поле!");
-
-        });
-
-        addCostButton.setOnAction(event ->{
-            if (costTextField.getText() != "") {
-                Connect.client.sendMessage("editCostProduct");
-            }else errorLabel.setText("Заполните необходимое поле!");
+            Products product = table_products.getSelectionModel().getSelectedItem();
+            if (product == null)
+                errorLabel.setText("Выберите запись для её редактирования!");
+            else{
+                errorLabel.setText("");
+                if (!madeYesterdayTextField.getText().equals("")) {
+                    editProduct(product.getId());
+                }else errorLabel.setText("Заполните необходимое поле!");
+            }
 
         });
 
         findButton.setOnAction(event ->{
-            if(nameTextField.getText() != "") {
+            errorLabel.setText("");
+            if(!nameTextField.getText().equals("")) {
                 Connect.client.sendMessage("findProduct");
-                findDoc();
+                findProduct();
             }else errorLabel.setText("Введите наименование продукта для поиска!");
         });
 
@@ -114,7 +111,23 @@ public class ManagerProductsController {
         return prodList;
     }
 
-    private void findDoc() {
+    private void editProduct(int id) {
+        int madeYesterday = Integer.parseInt(madeYesterdayTextField.getText());
+        Connect.client.sendMessage("editProduct");
+        Connect.client.sendObject(id);
+        Connect.client.sendObject(madeYesterday);
+
+        System.out.println("Продукт успешно изменён.");
+        Connect.client.sendMessage("productsInf");
+        try{
+            WinChanger.changeWindow(getClass(), addMadeYesterdayButton, "productsForManager.fxml", false);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void findProduct() {
         String name = nameTextField.getText(), m="";
         Connect.client.sendObject(name);
         try {
@@ -125,15 +138,14 @@ public class ManagerProductsController {
         if (m.equals("OK")) {
             try {
                 productList.clear();
-                ArrayList<Products> document = (ArrayList<Products>) Connect.client.readObject();
-                System.out.println("Найден документ " + nameTextField.getText());
-                productList.addAll(document);
+                ArrayList<Products> products = (ArrayList<Products>) Connect.client.readObject();
+                productList.addAll(products);
                 for (int i = 0; i < productList.size(); i++)
                     table_products.setItems(productList);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else errorLabel.setText("Данный клиент не найден!");
+        } else errorLabel.setText("Данный продукт не найден!");
         nameTextField.clear();
     }
 

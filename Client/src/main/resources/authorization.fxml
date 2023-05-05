@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthorizationController">
     <children>
-        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
+        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(#ffffff, #ac89bb)">
             <children>
                 <Label layoutX="295.0" layoutY="21.0" prefHeight="30.0" prefWidth="110.0" text="CONTOSO" textAlignment="CENTER">
                     <font>

@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="443.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AttentionExitController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="233.0" prefWidth="443.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AttentionExitController">
     <children>
-        <AnchorPane layoutY="29.0" prefHeight="205.0" prefWidth="443.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
+        <AnchorPane layoutY="29.0" prefHeight="205.0" prefWidth="443.0" style="-fx-background-color: linear-gradient(#ffffff, #ac89bb)">
             <children>
                 <Button fx:id="acceptExitButton" layoutX="159.0" layoutY="135.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="153.0" style="-fx-background-color: transparent; -fx-border-radius: 3; -fx-border-color: #692986; -fx-border-width: 0.5;" text="да" textFill="WHITE">
                     <font>
@@ -34,6 +34,9 @@
             <font>
                 <Font size="14.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
       <Label layoutX="7.0" layoutY="-2.0" prefHeight="30.0" prefWidth="107.0" text="CONTOSO" textAlignment="CENTER">
          <font>

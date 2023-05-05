@@ -11,7 +11,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagerClientsController">
     <children>
-        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" styleClass="backgroundColor" stylesheets="@../styles/style.css">
+        <AnchorPane layoutY="32.0" prefHeight="374.0" prefWidth="700.0" style="-fx-background-color: linear-gradient(#ffffff, #ac89bb)">
             <children>
             <TableView fx:id="table_clients" layoutX="14.0" layoutY="90.0" prefHeight="271.0" prefWidth="482.0">
               <columns>
@@ -69,6 +69,9 @@
             <font>
                 <Font size="14.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
         </Button>
     </children>
 </AnchorPane>

@@ -18,7 +18,7 @@ public class ManagerMenuController {
     private URL location;
 
     @FXML
-    private Button checksButton;
+    private Button billsButton;
 
     @FXML
     private Button clientsButton;
@@ -39,7 +39,6 @@ public class ManagerMenuController {
     void initialize() {
         ordersButton.setOnAction(event ->{
             Connect.client.sendMessage("ordersInf");
-            Connect.visible = 0;
             try{
                 WinChanger.changeWindow(getClass(), ordersButton, "ordersForManager.fxml", false);
             } catch (IOException e){
@@ -47,10 +46,10 @@ public class ManagerMenuController {
             }
         });
 
-        checksButton.setOnAction(event ->{
+        billsButton.setOnAction(event ->{
             Connect.client.sendMessage("billsInf");
             try{
-                WinChanger.changeWindow(getClass(), checksButton, "billsForManager.fxml", false);
+                WinChanger.changeWindow(getClass(), billsButton, "billsForManager.fxml", false);
             } catch (IOException e){
                 e.printStackTrace();
             }
